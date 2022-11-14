@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyWalking : MonoBehaviour
+public class EnemyWalkTowardsPlayer : MonoBehaviour
 {
 
     [SerializeField]
@@ -20,7 +20,11 @@ public class EnemyWalking : MonoBehaviour
         if (ray)
         {
             Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
-            player = hit.collider.gameObject;
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                player = hit.collider.gameObject;
+            }
+            
         }
 
 
