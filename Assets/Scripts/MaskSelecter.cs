@@ -17,6 +17,25 @@ public class MaskSelecter : MonoBehaviour
     [SerializeField]
     private GameObject maskSelect;
 
+    [SerializeField]
+    private float xMaxValue = 25.0f;
+
+    [SerializeField]
+    private float zMaxValue = 25.0f;
+
+    [SerializeField]
+    private float xMinValue = -25.0f;
+
+    [SerializeField]
+    private float zMinValue = -25.0f;
+
+
+    [SerializeField]
+    private GameObject weaponBase;
+
+
+    Vector3 myVector;
+
     private void Start()
     {
         Time.timeScale = 0;
@@ -31,6 +50,11 @@ public class MaskSelecter : MonoBehaviour
 
     public void PigSelect()
     {
+        for (int i = 0; i < 20; i++)
+        {
+            myVector = new Vector3(Random.Range(xMinValue, xMaxValue), 0.1f, Random.Range(zMinValue, zMaxValue));
+            Instantiate(weaponBase, myVector, Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(myVector), Time.deltaTime * 360));
+        }
         pigSelected = true;
         MaskSelectDisable();
     }

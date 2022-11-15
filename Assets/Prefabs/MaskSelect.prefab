@@ -48,6 +48,11 @@ MonoBehaviour:
   horseSelected: 0
   tigerSelected: 0
   maskSelect: {fileID: 6273043426614632877}
+  xMaxValue: 25
+  zMaxValue: 25
+  xMinValue: -25
+  zMinValue: -25
+  weaponBase: {fileID: 2200593377796753209, guid: 21d7f658a8b4ebc47967e80c67bfc8c3, type: 3}
 --- !u!1 &628784590737838955
 GameObject:
   m_ObjectHideFlags: 0
