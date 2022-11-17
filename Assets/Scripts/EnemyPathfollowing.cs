@@ -24,58 +24,107 @@ public class EnemyPathfollowing : MonoBehaviour
 
     GameObject player;
 
+    public bool hasWeapon = true;
+
+    private float minDist = Mathf.Infinity;
+
+    [SerializeField]
+    private GameObject closestWeapon = null;
+
+    [SerializeField]
+    private float weaponPickSpeed = 15.0f;
+
+    private int doOnce = 0;
+
     private void Start()
     {
         wanderPoints = GameObject.FindGameObjectsWithTag("PathPoint");
+        doOnce = 0;
     }
 
     void Update()
     {
-
-        Debug.DrawRay(transform.position, transform.forward, Color.red);
-        var ray = Physics.Raycast(transform.position, transform.forward, out hit);
-        if (ray)
+        if (hasWeapon)
         {
-            Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
-            if (hit.collider.gameObject.tag == "Player")
+            Debug.DrawRay(transform.position, transform.forward, Color.red);
+            var ray = Physics.Raycast(transform.position, transform.forward, out hit);
+            if (ray)
             {
-                player = hit.collider.gameObject;
+                Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    player = hit.collider.gameObject;
+                }
+
             }
 
-        }
 
 
-
-        if (player == null)
-        {
-            Debug.Log(_counter);
-            var step = pointSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, wanderPoints[_counter].transform.position, step);
-            _direction = (wanderPoints[_counter].transform.position - transform.position).normalized;
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
-
-            if (transform.position.x == wanderPoints[_counter].transform.position.x && transform.position.z == wanderPoints[_counter].transform.position.z)
+            if (player == null)
             {
-                if (_counter == wanderPoints.Length - 1)
-                {
-                    _counter = 0;
-                }
-                else
-                {
-                    _counter++;
-                }
+                Debug.Log(_counter);
+                var step = pointSpeed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, wanderPoints[_counter].transform.position, step);
+                _direction = (wanderPoints[_counter].transform.position - transform.position).normalized;
 
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
+
+                if (transform.position.x == wanderPoints[_counter].transform.position.x && transform.position.z == wanderPoints[_counter].transform.position.z)
+                {
+                    if (_counter == wanderPoints.Length - 1)
+                    {
+                        _counter = 0;
+                    }
+                    else
+                    {
+                        _counter++;
+                    }
+
+                }
+            }
+            else
+            {
+                var step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+                _direction = (player.transform.position - transform.position).normalized;
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
             }
         }
         else
         {
-            var step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
-            _direction = (player.transform.position - transform.position).normalized;
+            GameObject[] weapons;
+            if (doOnce == 0)
+            {
+                doOnce++;
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
+                weapons = GameObject.FindGameObjectsWithTag("Weapon");
+                foreach (var weapon in weapons)
+                {
+                    float dist = Vector3.Distance(weapon.transform.position, transform.position);
+                    if (dist < minDist)
+                    {
+                        closestWeapon = weapon;
+                        minDist = dist;
+                    }
+                }
+            }
+
+            Vector3 closestWeaponPos = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
+
+            var step = weaponPickSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, closestWeaponPos, step);
+            _direction = (closestWeapon.transform.position - transform.position).normalized;
+
+            Vector3 lookDirection = new Vector3(_direction.x, 0, 0);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), Time.deltaTime * 360);
+            if (transform.position == closestWeaponPos)
+            {
+                hasWeapon = true;
+            }
         }
+        
         
     }
 }

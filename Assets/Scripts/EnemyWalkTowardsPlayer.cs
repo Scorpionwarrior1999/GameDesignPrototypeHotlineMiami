@@ -12,27 +12,81 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
     GameObject player;
     private Vector3 _direction;
 
+    public bool hasWeapon = true;
+
+    private float minDist = Mathf.Infinity;
+
+    [SerializeField]
+    private GameObject closestWeapon = null;
+
+    [SerializeField]
+    private float weaponPickSpeed = 15.0f;
+
+    private int doOnce = 0;
+
+    private void Start()
+    {
+        doOnce = 0;
+    }
+
+
     void Update()
     {
-        
-        Debug.DrawRay(transform.position, transform.forward, Color.red);
-        var ray = Physics.Raycast(transform.position, transform.forward, out hit);
-        if (ray)
+        if (hasWeapon)
         {
-            Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
-            if (hit.collider.gameObject.tag == "Player")
+            Debug.DrawRay(transform.position, transform.forward, Color.red);
+            var ray = Physics.Raycast(transform.position, transform.forward, out hit);
+            if (ray)
             {
-                player = hit.collider.gameObject;
+                Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    player = hit.collider.gameObject;
+                }
+
             }
-            
+
+
+            var step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+            _direction = (player.transform.position - transform.position).normalized;
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
         }
+        else
+        {
+            GameObject[] weapons;
+            if (doOnce == 0)
+            {
+                doOnce++;
 
+                weapons = GameObject.FindGameObjectsWithTag("Weapon");
+                foreach (var weapon in weapons)
+                {
+                    float dist = Vector3.Distance(weapon.transform.position, transform.position);
+                    if (dist < minDist)
+                    {
+                        closestWeapon = weapon;
+                        minDist = dist;
+                    }
+                }
+            }
 
-        var step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
-        _direction = (player.transform.position - transform.position).normalized;
+            Vector3 closestWeaponPos = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
+            var step = weaponPickSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, closestWeaponPos, step);
+            _direction = (closestWeapon.transform.position - transform.position).normalized;
+
+            Vector3 lookDirection = new Vector3(_direction.x, 0, 0);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), Time.deltaTime * 360);
+            if (transform.position == closestWeaponPos)
+            {
+                hasWeapon = true;
+            }
+        }
+       
 
     }
 }
