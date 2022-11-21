@@ -19,7 +19,7 @@ public class EnemyWandering : MonoBehaviour
 
     [SerializeField]
     private float zMaxValue = 1.0f;
-    
+
     [SerializeField]
     private float xMinValue = 1.0f;
 
@@ -31,24 +31,17 @@ public class EnemyWandering : MonoBehaviour
 
     Vector3 myVector;
 
-    private int doOnce = 0;
     RaycastHit hit;
 
     GameObject player;
 
     public bool hasWeapon = true;
 
-    private float minDist = Mathf.Infinity;
-
-    [SerializeField]
-    private GameObject closestWeapon = null;
-
     [SerializeField]
     private float weaponPickSpeed = 15.0f;
 
     private void Start()
     {
-        doOnce = 0;
     }
 
     void Update()
@@ -59,7 +52,7 @@ public class EnemyWandering : MonoBehaviour
             var ray = Physics.Raycast(transform.position, transform.forward, out hit);
             if (ray)
             {
-                Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
+                //Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
                 if (hit.collider.gameObject.tag == "Player")
                 {
                     player = hit.collider.gameObject;
@@ -76,7 +69,7 @@ public class EnemyWandering : MonoBehaviour
                 if (timeLeft <= 0)
                 {
                     myVector = new Vector3(Random.Range(xMinValue, xMaxValue), 1.8f, Random.Range(zMinValue, zMaxValue));
-                    Debug.Log(myVector.ToString());
+                    //Debug.Log(myVector.ToString());
                     timeLeft = 5;
                 }
                 else
@@ -99,22 +92,20 @@ public class EnemyWandering : MonoBehaviour
         }
         else
         {
+            float minDist = Mathf.Infinity;
             GameObject[] weapons;
-            if (doOnce == 0)
+            GameObject closestWeapon = null;
+            weapons = GameObject.FindGameObjectsWithTag("Weapon");
+            foreach (var weapon in weapons)
             {
-                doOnce++;
-
-                weapons = GameObject.FindGameObjectsWithTag("Weapon");
-                foreach (var weapon in weapons)
+                float dist = Vector3.Distance(weapon.transform.position, transform.position);
+                if (dist < minDist)
                 {
-                    float dist = Vector3.Distance(weapon.transform.position, transform.position);
-                    if (dist < minDist)
-                    {
-                        closestWeapon = weapon;
-                        minDist = dist;
-                    }
+                    closestWeapon = weapon;
+                    minDist = dist;
                 }
             }
+
 
             Vector3 closestWeaponPos = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
 
@@ -128,10 +119,17 @@ public class EnemyWandering : MonoBehaviour
             if (transform.position == closestWeaponPos)
             {
                 hasWeapon = true;
+                closestWeapon.transform.parent = gameObject.transform;
+                closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
+                if (closestWeapon.transform.parent.tag == "Enemy")
+                {
+                    closestWeapon.tag = "Untagged";
+                }
+                //Destroy(closestWeapon);
             }
 
         }
-        
+
 
     }
 }

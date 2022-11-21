@@ -2,15 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class WeaponUnparent : MonoBehaviour
 {
-
-
-
-    // als enemy in collideer van weapon is en hasweapon van enemy is false, zet hasweapon van enemy op true en destroy weapon
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +13,9 @@ public class WeaponPickup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameObject.transform.parent == null)
+        {
+            gameObject.tag = "Weapon";
+        }
     }
 }
