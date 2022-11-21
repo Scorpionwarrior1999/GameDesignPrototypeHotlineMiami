@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8183259855564605631}
   - component: {fileID: 4377312673078392427}
   - component: {fileID: 5943492271732497723}
-  - component: {fileID: 451515848164959053}
   - component: {fileID: 1025895355262151578}
+  - component: {fileID: 2912890727760170987}
   m_Layer: 0
   m_Name: WeaponBase
   m_TagString: Weapon
@@ -99,18 +99,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &451515848164959053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2200593377796753209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abcd409eda3a0d42b89081c46aaa1c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &1025895355262151578
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -122,5 +110,17 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.04, y: 2.38, z: 1.63}
+  m_Size: {x: 5.14, y: 2.8, z: 1.36}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2912890727760170987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2200593377796753209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18a0b296a9c578d48b876531612a86a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

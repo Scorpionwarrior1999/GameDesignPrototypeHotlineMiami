@@ -26,15 +26,10 @@ public class EnemyPathfollowing : MonoBehaviour
 
     public bool hasWeapon = true;
 
-    private float minDist = Mathf.Infinity;
-
-    [SerializeField]
-    private GameObject closestWeapon = null;
-
     [SerializeField]
     private float weaponPickSpeed = 15.0f;
 
-    private int doOnce = 0;
+    public int doOnce = 0;
 
     private void Start()
     {
@@ -93,20 +88,18 @@ public class EnemyPathfollowing : MonoBehaviour
         }
         else
         {
+            float minDist = Mathf.Infinity;
+            GameObject closestWeapon = null;
             GameObject[] weapons;
-            if (doOnce == 0)
+            weapons = GameObject.FindGameObjectsWithTag("Weapon");
+            foreach (var weapon in weapons)
             {
-                doOnce++;
-
-                weapons = GameObject.FindGameObjectsWithTag("Weapon");
-                foreach (var weapon in weapons)
+                float dist = Vector3.Distance(weapon.transform.position, transform.position);
+                if (dist < minDist)
                 {
-                    float dist = Vector3.Distance(weapon.transform.position, transform.position);
-                    if (dist < minDist)
-                    {
-                        closestWeapon = weapon;
-                        minDist = dist;
-                    }
+                    Debug.Log("closest weapon found");
+                    closestWeapon = weapon;
+                    minDist = dist;
                 }
             }
 
@@ -122,9 +115,16 @@ public class EnemyPathfollowing : MonoBehaviour
             if (transform.position == closestWeaponPos)
             {
                 hasWeapon = true;
+                closestWeapon.transform.parent = gameObject.transform;
+                closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
+                if (closestWeapon.transform.parent.tag == "Enemy")
+                {
+                    closestWeapon.tag = "Untagged";
+                }
+                //Destroy(closestWeapon);
             }
         }
-        
-        
+
+
     }
 }
