@@ -116,8 +116,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   hasWeapon: 1
-  closestWeapon: {fileID: 0}
   weaponPickSpeed: 15
+  hasMeleeWeapon: 0
+  hasGun: 1
+  bullet: {fileID: 7684911869146856376, guid: 268b53308ae11324ba51956cab5e4f9b, type: 3}
+  minDistPlayer: 25
 --- !u!195 &4586069948365969703
 NavMeshAgent:
   m_ObjectHideFlags: 0

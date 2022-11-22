@@ -140,8 +140,11 @@ MonoBehaviour:
   speed: 10
   pointSpeed: 1
   hasWeapon: 1
-  closestWeapon: {fileID: 0}
   weaponPickSpeed: 15
+  hasMeleeWeapon: 1
+  hasGun: 0
+  bullet: {fileID: 7684911869146856376, guid: 268b53308ae11324ba51956cab5e4f9b, type: 3}
+  minDistPlayer: 25
 --- !u!54 &7821499548540018675
 Rigidbody:
   m_ObjectHideFlags: 0

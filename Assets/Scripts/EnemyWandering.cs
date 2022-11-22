@@ -40,6 +40,19 @@ public class EnemyWandering : MonoBehaviour
     [SerializeField]
     private float weaponPickSpeed = 15.0f;
 
+    [SerializeField]
+    private bool hasMeleeWeapon = false;
+
+    [SerializeField]
+    private bool hasGun = true;
+
+    [SerializeField]
+    private GameObject bullet;
+    private int doOnce = 0;
+
+    [SerializeField]
+    private float minDistPlayer = 25f;
+
     private void Start()
     {
     }
@@ -88,10 +101,37 @@ public class EnemyWandering : MonoBehaviour
                 _direction = (player.transform.position - transform.position).normalized;
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(_direction), Time.deltaTime * 360);
+                if (hasMeleeWeapon)
+                {
+                    hasGun = false;
+                    float minDistPlayer = 3f;
+                    float dist = Vector3.Distance(player.transform.position, transform.position);
+                    if (dist < minDistPlayer)
+                    {
+                        //player.gameObject.SetActive(false);
+                        Destroy(player);
+                    }
+                }
+                else if (hasGun)
+                {
+                    hasMeleeWeapon = false;
+                    float dist = Vector3.Distance(player.transform.position, transform.position);
+                    if (dist < minDistPlayer)
+                    {
+                        if (doOnce == 0)
+                        {
+                            doOnce++;
+                            Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
+                            StartCoroutine(spawnBullet());
+                        }
+                    }
+                }
             }
         }
         else
         {
+            hasGun = false;
+            hasMeleeWeapon = false;
             float minDist = Mathf.Infinity;
             GameObject[] weapons;
             GameObject closestWeapon = null;
@@ -119,6 +159,14 @@ public class EnemyWandering : MonoBehaviour
             if (transform.position == closestWeaponPos)
             {
                 hasWeapon = true;
+                if (closestWeapon.GetComponent<WeaponUnparent>().isGun == true)
+                {
+                    hasGun = true;
+                }
+                else if (closestWeapon.GetComponent<WeaponUnparent>().isMeleeWeapon == true)
+                {
+                    hasMeleeWeapon = true;
+                }
                 closestWeapon.transform.parent = gameObject.transform;
                 closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
                 if (closestWeapon.transform.parent.tag == "Enemy")
@@ -130,6 +178,13 @@ public class EnemyWandering : MonoBehaviour
 
         }
 
+    }
+    private IEnumerator spawnBullet()
+    {
+
+        yield return new WaitForSeconds(0.25f);
+        Debug.Log("a second has passed");
+        doOnce = 0;
 
     }
 }
