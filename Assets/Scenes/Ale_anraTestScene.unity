@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &28066668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3424103511718329436, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
+  m_PrefabInstance: {fileID: 1395656235}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &112598435
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,7 +372,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -451,7 +456,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5ce808984a04145429d1c329d6bacdb7, type: 2}
+  - {fileID: 2100000, guid: a877a0fc32c12d94d8165f7ffd48edc6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -496,6 +501,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1110289357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5068078801279923872, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
+  m_PrefabInstance: {fileID: 1395656235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1110289364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110289357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bb7dcd81a8ffd4aadfbf8866fee3bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _WeaponPlace: {fileID: 28066668}
+  _Thrust: 20
+  _hasWeapon: 0
+  _amountClicked: 0
 --- !u!1 &1163656884
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +553,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1163656886
 MeshRenderer:
@@ -606,7 +632,7 @@ Rigidbody:
   m_Drag: 0.5
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -619,6 +645,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5068078801279923872, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068078801279923872, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5068078801279923885, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
@@ -665,5 +695,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2579644960109524583, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}

@@ -1,58 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpWeapon : MonoBehaviour
 {
-    [SerializeField] private Collider _pickUprange;
     [SerializeField] private GameObject _WeaponPlace;
     [SerializeField] private float _Thrust = 20f;
-    private bool _hasWeapon = false;
+
+    [SerializeField] private bool _hasWeapon = false;
     private GameObject _currentWeapon;
+    private void Update()
+    {
+    }
 
     private void OnTriggerStay(Collider other)
-    {
-        Debug.Log(other.transform.tag);
-        if (other.transform.tag == "Weapon" && Input.GetMouseButtonUp(1))
+    {        
+        if (other.gameObject.tag == "Weapon" && Input.GetMouseButtonUp(1))
         {
-            if (_hasWeapon == true)
+            if (!_hasWeapon)
             {
-                Transform childToRemove = this.transform.Find(_currentWeapon.name);
-                childToRemove.parent = null;
-                //_currentWeapon.GetComponent<Rigidbody>().AddForce(_currentWeapon.transform.forward * _Thrust);
-
                 _hasWeapon = true;
-
+                WeaponPos(other.gameObject);
                 _currentWeapon = other.gameObject;
-                Debug.Log("true");
-                WeaponPos(other);
             }
-            else
+            if (_hasWeapon)
             {
-                _hasWeapon = true;
+                WeaponThrow(_currentWeapon);
 
                 _currentWeapon = other.gameObject;
-                Debug.Log("true");
-                WeaponPos(other);
+                WeaponPos(other.gameObject);
             }
         }
+
+        Debug.Log(other.transform.tag);
     }
 
-    private void WeaponPos(Collider other)
+    private void WeaponThrow(GameObject gameObject)
     {
-        other.transform.position = _WeaponPlace.transform.position;
-        other.transform.rotation = _WeaponPlace.transform.rotation;
-        other.transform.parent = this.transform;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        Transform childToRemove = this.transform.Find(gameObject.name);
+        childToRemove.parent = null;
+        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * _Thrust);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void WeaponPos(GameObject gameObject)
     {
-        
+        gameObject.transform.position = _WeaponPlace.transform.position;
+        gameObject.transform.rotation = _WeaponPlace.transform.rotation;
+        gameObject.transform.parent = this.transform;
     }
 }
