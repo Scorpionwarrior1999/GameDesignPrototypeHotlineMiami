@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PickUpWeapon : MonoBehaviour
@@ -8,14 +5,14 @@ public class PickUpWeapon : MonoBehaviour
     [SerializeField] private GameObject _WeaponPlace;
     [SerializeField] private float _Thrust = 20f;
 
-    [SerializeField] private bool _hasWeapon = false;
+    public bool _hasWeapon = false;
     private GameObject _currentWeapon;
     private void Update()
     {
     }
 
     private void OnTriggerStay(Collider other)
-    {        
+    {
         if (other.gameObject.tag == "Weapon" && Input.GetMouseButtonUp(1))
         {
             if (!_hasWeapon)
@@ -32,7 +29,7 @@ public class PickUpWeapon : MonoBehaviour
             }
         }
 
-        Debug.Log(other.transform.tag);
+        //Debug.Log(other.transform.tag);
     }
 
     private void WeaponThrow(GameObject gameObject)

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyWalkTowardsPlayer : MonoBehaviour
@@ -9,7 +8,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
     private float speed = 1.0f;
     RaycastHit hit;
 
-    GameObject player;
+    public GameObject player;
     private Vector3 _direction;
 
     public bool hasWeapon = true;
@@ -38,7 +37,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
             var ray = Physics.Raycast(transform.position, transform.forward, out hit);
             if (ray)
             {
-                Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
+                //Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
                 if (hit.collider.gameObject.tag == "Player")
                 {
                     player = hit.collider.gameObject;
@@ -136,7 +135,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.25f);
-        Debug.Log("a second has passed");
+        //Debug.Log("a second has passed");
         doOnce = 0;
 
     }
