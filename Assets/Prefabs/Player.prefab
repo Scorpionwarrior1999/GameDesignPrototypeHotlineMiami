@@ -238,11 +238,11 @@ GameObject:
   - component: {fileID: 5068078801279923886}
   - component: {fileID: 5068078801279923887}
   - component: {fileID: 1957526066724241717}
-  - component: {fileID: 2579644960109524583}
   - component: {fileID: 1768712330889986949}
+  - component: {fileID: 1110289364}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,21 +316,6 @@ CapsuleCollider:
   m_Height: 7.33
   m_Direction: 1
   m_Center: {x: 0, y: 0.02, z: 0}
---- !u!114 &2579644960109524583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5068078801279923872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0abcd409eda3a0d42b89081c46aaa1c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pickUprange: {fileID: 1957526066724241717}
-  _WeaponPlace: {fileID: 3424103511718329436}
-  _Thrust: 20
 --- !u!54 &1768712330889986949
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -347,3 +332,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &1110289364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5068078801279923872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bb7dcd81a8ffd4aadfbf8866fee3bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _WeaponPlace: {fileID: 3424103511718329436}
+  _Thrust: 20
+  _hasWeapon: 0
