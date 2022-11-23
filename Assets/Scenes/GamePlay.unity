@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5068078801279923886, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
+      propertyPath: m_StepOffset
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
 --- !u!1001 &157340950
@@ -415,6 +419,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -488,6 +493,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3c2a9f5bfec5f428fd6e8bf948fab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 1143031586}
+  _cameraSpeed: 10
+  _maxCenterPlayerDelay: 3
+  _cameraShakeAmount: 2
 --- !u!1 &1036192977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,3 +1063,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2137060804135949a92df4069265b41, type: 3}
+--- !u!1 &1143031586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5068078801279923872, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
+  m_PrefabInstance: {fileID: 145636063}
+  m_PrefabAsset: {fileID: 0}
