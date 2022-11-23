@@ -20,7 +20,6 @@ public class PickUpWeapon : MonoBehaviour
         {
             if (!_hasWeapon)
             {
-                _hasWeapon = true;
                 WeaponPos(other.gameObject);
                 _currentWeapon = other.gameObject;
             }
@@ -41,12 +40,14 @@ public class PickUpWeapon : MonoBehaviour
         Transform childToRemove = this.transform.Find(gameObject.name);
         childToRemove.parent = null;
         gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * _Thrust);
+        _hasWeapon = false;
     }
 
     private void WeaponPos(GameObject gameObject)
     {
+        _hasWeapon = true;
+        gameObject.transform.parent = this.transform;
         gameObject.transform.position = _WeaponPlace.transform.position;
         gameObject.transform.rotation = _WeaponPlace.transform.rotation;
-        gameObject.transform.parent = this.transform;
     }
 }
