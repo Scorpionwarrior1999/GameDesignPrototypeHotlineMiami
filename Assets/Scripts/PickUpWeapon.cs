@@ -15,7 +15,7 @@ public class PickUpWeapon : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Weapon") && Input.GetMouseButtonDown(1) && other.gameObject != _currentWeapon)
+        if (other.gameObject.CompareTag("Weapon") && Input.GetMouseButton(1) && other.gameObject != _currentWeapon)
         {
             if (!_hasWeapon)
             {
