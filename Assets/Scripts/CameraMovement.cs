@@ -28,7 +28,6 @@ public class CameraMovement : MonoBehaviour
 
         transform.position = _cameraPosition;
         transform.rotation = Quaternion.Euler(_cameraRotation);
-
     }
 
     void Update()
@@ -44,7 +43,7 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 playerPos = _player.transform.position;
         playerPos.y = transform.position.y;
-        if (_isPlayerOffCenter() && DelayIsZero())
+        if (IsPlayerOffCenter() && DelayIsZero())
         {
             transform.position = Vector3.MoveTowards(transform.position, playerPos, _cameraSpeed * Time.deltaTime);
             transform.position -= _cameraSpeed * Time.deltaTime * Vector3.right;
@@ -61,7 +60,7 @@ public class CameraMovement : MonoBehaviour
             return false;
     }
 
-    private bool _isPlayerOffCenter()
+    private bool IsPlayerOffCenter()
     {
         Vector3 playerViewPos = Camera.main.WorldToViewportPoint(_player.transform.position);
 
@@ -85,30 +84,34 @@ public class CameraMovement : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector3 playerViewPos = Camera.main.WorldToViewportPoint(_player.transform.position);
-
-        if (playerViewPos.x < 0.45f)
+        if(_player != null)
         {
-            _centerPlayerDelay = _maxCenterPlayerDelay;
-            transform.position -= _cameraSpeed * Time.deltaTime * Vector3.right;
-        }
+            Vector3 playerViewPos = Camera.main.WorldToViewportPoint(_player.transform.position);
 
-        else if (playerViewPos.x > 0.55f)
-        {
-            _centerPlayerDelay = _maxCenterPlayerDelay;
-            transform.position += _cameraSpeed * Time.deltaTime * Vector3.right;
-        }
+            if (playerViewPos.x < 0.45f)
+            {
+                _centerPlayerDelay = _maxCenterPlayerDelay;
+                transform.position -= _cameraSpeed * Time.deltaTime * Vector3.right;
+            }
 
-        if (playerViewPos.y < 0.45f)
-        {
-            _centerPlayerDelay = _maxCenterPlayerDelay;
-            transform.position -= _cameraSpeed * Time.deltaTime * Vector3.forward;
-        }
+            else if (playerViewPos.x > 0.55f)
+            {
+                _centerPlayerDelay = _maxCenterPlayerDelay;
+                transform.position += _cameraSpeed * Time.deltaTime * Vector3.right;
+            }
 
-        else if (playerViewPos.y > 0.55f)
-        {
-            _centerPlayerDelay = _maxCenterPlayerDelay;
-            transform.position += _cameraSpeed * Time.deltaTime * Vector3.forward;
+            if (playerViewPos.y < 0.45f)
+            {
+                _centerPlayerDelay = _maxCenterPlayerDelay;
+                transform.position -= _cameraSpeed * Time.deltaTime * Vector3.forward;
+            }
+
+            else if (playerViewPos.y > 0.55f)
+            {
+                _centerPlayerDelay = _maxCenterPlayerDelay;
+                transform.position += _cameraSpeed * Time.deltaTime * Vector3.forward;
+            }
         }
+        
     }
 }
