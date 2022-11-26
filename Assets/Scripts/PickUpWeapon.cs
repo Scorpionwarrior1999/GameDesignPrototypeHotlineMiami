@@ -3,7 +3,6 @@ using UnityEngine;
 public class PickUpWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject _WeaponPlace;
-    [SerializeField] private float _Thrust = 20f;
 
     public bool _hasWeapon = false;
     public GameObject _currentWeapon;

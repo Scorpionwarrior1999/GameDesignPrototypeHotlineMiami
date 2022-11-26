@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class WeaponUnparent : MonoBehaviour
 {
-    [SerializeField]
     public bool isMeleeWeapon = false;
     public bool isGun = false;
 

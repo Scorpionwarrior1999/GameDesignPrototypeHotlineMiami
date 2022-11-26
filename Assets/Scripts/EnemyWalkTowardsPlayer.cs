@@ -38,7 +38,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
             if (ray)
             {
                 //Debug.Log("Found an object - tag: " + hit.collider.gameObject.tag.ToString());
-                if (hit.collider.gameObject.tag == "Player")
+                if (hit.collider.gameObject.CompareTag("Player"))
                 {
                     player = hit.collider.gameObject;
                 }
@@ -73,7 +73,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
                     {
                         doOnce++;
                         Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
-                        StartCoroutine(spawnBullet());
+                        StartCoroutine(SpawnBullet());
                     }
                 }
             }
@@ -120,7 +120,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
                 }
                 closestWeapon.transform.parent = gameObject.transform;
                 closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
-                if (closestWeapon.transform.parent.tag == "Enemy")
+                if (closestWeapon.transform.parent.CompareTag("Enemy"))
                 {
                     closestWeapon.tag = "Untagged";
                 }
@@ -131,7 +131,7 @@ public class EnemyWalkTowardsPlayer : MonoBehaviour
 
     }
 
-    private IEnumerator spawnBullet()
+    private IEnumerator SpawnBullet()
     {
 
         yield return new WaitForSeconds(0.25f);

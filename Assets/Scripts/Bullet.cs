@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -24,7 +23,7 @@ public class Bullet : MonoBehaviour
         var ray = Physics.Raycast(transform.position, transform.forward, out hit, bulletDist);
         if (ray)
         {
-            if (hit.collider.gameObject.tag == "Player")
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Found an object player");
                 Destroy(hit.collider.gameObject);
