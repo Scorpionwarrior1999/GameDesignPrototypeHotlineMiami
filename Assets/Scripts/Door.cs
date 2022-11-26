@@ -5,7 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [SerializeField]
-    private float _maxAngle;
+    private float _maxAngle = 120;
 
 
     private Rigidbody _rb;

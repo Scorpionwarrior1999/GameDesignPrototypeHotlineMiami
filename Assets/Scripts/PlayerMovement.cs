@@ -11,8 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private LayerMask _floorLayer;
 
-    private Vector3 _velocity, _inputVector;
+    [SerializeField]
+    private GameObject _blood;
 
+    private Vector3 _velocity, _inputVector;
+    
 
     void Update()
     {
@@ -86,5 +89,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             _velocity.y += Physics.gravity.y * Time.deltaTime;
+    }
+
+
+
+    private void OnDestroy()
+    {
+        Instantiate(_blood, transform.position + Vector3.up * 0.1f, Quaternion.identity);
     }
 }
