@@ -1,13 +1,19 @@
+using System;
 using UnityEngine;
 
 public class PlayerFighting : MonoBehaviour
 {
-    [SerializeField] PickUpWeapon _HasWeapon;
+    [SerializeField] CapsuleCollider _Collider;
+    [SerializeField] float _Capsuleradius;
 
-    private bool _canHit;
+    private PickUpWeapon _HasWeapon;
     // Start is called before the first frame update
     void Start()
     {
+        _Collider = gameObject.AddComponent<CapsuleCollider>();
+        _Collider.radius = _Capsuleradius;
+        _Collider.height = 6f;
+        _Collider.isTrigger = true;
         _HasWeapon = GetComponent<PickUpWeapon>();
     }
 
@@ -16,12 +22,31 @@ public class PlayerFighting : MonoBehaviour
     {
         if (_HasWeapon._hasWeapon)
         {
-            //gun code
-            _canHit = false;
+            if (_HasWeapon._currentWeapon.name == "Melee")
+            {
+                MeleeHit();
+            }
+            else if (_HasWeapon._currentWeapon.name == "Gun")
+                GunHit();
+            return;
+            
         }
         else
-            _canHit = true;
+                PunchHit();
+
+
+        Debug.Log(_Collider.radius);
     }
+
+    private void GunHit()
+        => _Collider.radius = _Capsuleradius * 2f;
+
+    private void PunchHit()
+        => _Collider.radius = _Capsuleradius;
+
+    private void MeleeHit() 
+        => _Collider.radius = _Capsuleradius * 1.5f;
+
     private void OnTriggerStay(Collider other)
     {
          Debug.Log("stay");

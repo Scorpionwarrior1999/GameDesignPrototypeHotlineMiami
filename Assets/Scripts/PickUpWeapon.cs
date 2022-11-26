@@ -6,45 +6,49 @@ public class PickUpWeapon : MonoBehaviour
     [SerializeField] private float _Thrust = 20f;
 
     public bool _hasWeapon = false;
-    private GameObject _currentWeapon;
+    public GameObject _currentWeapon;
     private void Update()
     {
+        if (_currentWeapon == null)
+            _hasWeapon = false;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Weapon" && Input.GetMouseButtonUp(1))
+        if (other.gameObject.CompareTag("Weapon") && Input.GetMouseButtonDown(1) && other.gameObject != _currentWeapon)
         {
             if (!_hasWeapon)
             {
                 WeaponPos(other.gameObject);
-                _currentWeapon = other.gameObject;
+                _hasWeapon = true;
+                return;
             }
             if (_hasWeapon)
-            {
+            {                
                 WeaponThrow(_currentWeapon);
-
-                _currentWeapon = other.gameObject;
-                WeaponPos(other.gameObject);
+                return;
             }
         }
-
         //Debug.Log(other.transform.tag);
     }
 
-    private void WeaponThrow(GameObject gameObject)
+    private void WeaponThrow(GameObject go)
     {
-        Transform childToRemove = this.transform.Find(gameObject.name);
+        Transform childToRemove = this.transform.Find(go.name);
         childToRemove.parent = null;
-        gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * _Thrust);
+        go.tag = "Weapon";
+        //gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.forward * _Thrust);
         _hasWeapon = false;
+        _currentWeapon = null;
+        return;
     }
 
-    private void WeaponPos(GameObject gameObject)
+    private void WeaponPos(GameObject go)
     {
-        _hasWeapon = true;
-        gameObject.transform.parent = this.transform;
-        gameObject.transform.position = _WeaponPlace.transform.position;
-        gameObject.transform.rotation = _WeaponPlace.transform.rotation;
+        go.transform.SetPositionAndRotation(_WeaponPlace.transform.position, _WeaponPlace.transform.rotation);
+        go.transform.parent = this.transform;
+
+        _currentWeapon = go;
+        go.tag = "Untagged";
     }
 }
