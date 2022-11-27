@@ -81,7 +81,7 @@ public class EnemyWandering : MonoBehaviour
                 timeLeft -= Time.deltaTime;
                 if (timeLeft <= 0)
                 {
-                    myVector = new Vector3(Random.Range(xMinValue, xMaxValue), 1.8f, Random.Range(zMinValue, zMaxValue));
+                    myVector = new Vector3(Random.Range(xMinValue, xMaxValue), 11.78f, Random.Range(zMinValue, zMaxValue));
                     //Debug.Log(myVector.ToString());
                     timeLeft = 5;
                 }
@@ -147,7 +147,7 @@ public class EnemyWandering : MonoBehaviour
             }
 
 
-            Vector3 closestWeaponPos = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
+            Vector3 closestWeaponPos = new Vector3(closestWeapon.transform.position.x, 11.78f, closestWeapon.transform.position.z);
 
             var step = weaponPickSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, closestWeaponPos, step);
@@ -168,7 +168,7 @@ public class EnemyWandering : MonoBehaviour
                     hasMeleeWeapon = true;
                 }
                 closestWeapon.transform.parent = gameObject.transform;
-                closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 1.8f, closestWeapon.transform.position.z);
+                closestWeapon.transform.position = new Vector3(closestWeapon.transform.position.x, 11.78f, closestWeapon.transform.position.z);
                 if (closestWeapon.transform.parent.tag == "Enemy")
                 {
                     closestWeapon.tag = "Untagged";
