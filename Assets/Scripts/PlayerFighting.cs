@@ -42,7 +42,7 @@ public class PlayerFighting : MonoBehaviour
         else
             PunchHit();
 
-        Debug.Log(_Collider.radius);
+        //Debug.Log(_Collider.radius);
     }
 
     private void Shoot(GameObject bullet)

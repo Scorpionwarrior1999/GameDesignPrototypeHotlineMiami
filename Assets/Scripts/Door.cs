@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -20,16 +18,16 @@ public class Door : MonoBehaviour
     {
         float currentYRotation = transform.rotation.eulerAngles.y;
 
-        if(currentYRotation > 180 && currentYRotation < 360)
+        if (currentYRotation > 180 && currentYRotation < 360)
         {
-            if(currentYRotation < 360 - _maxAngle)
+            if (currentYRotation < 360 - _maxAngle)
             {
                 currentYRotation = Mathf.Clamp(currentYRotation, 360 - _maxAngle, 360);
                 _rb.angularVelocity = Vector3.zero;
             }
         }
 
-        else if(currentYRotation > 0 && currentYRotation < 180)
+        else if (currentYRotation > 0 && currentYRotation < 180)
         {
             if (currentYRotation > _maxAngle)
             {

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4040619057917880995}
   - component: {fileID: 4040619057917881022}
   - component: {fileID: 4040619057917880993}
+  - component: {fileID: 1236047166}
   m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
@@ -83,6 +84,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &1236047166
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4040619057917880994}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.57
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4040619058568611074
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +173,9 @@ MonoBehaviour:
   _floorLayer:
     serializedVersion: 2
     m_Bits: 8
-  _blood: {fileID: 0}
+  _defaultLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!54 &4040619058568611073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -189,7 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _WeaponPlace: {fileID: 4040619058914478913}
-  _Thrust: 20
   _hasWeapon: 0
   _currentWeapon: {fileID: 0}
 --- !u!114 &4040619058568611075
@@ -206,6 +221,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Collider: {fileID: 1957526066724241717, guid: ac4f4a9cfc7ea504db5377c4fc56f4ab, type: 3}
   _Capsuleradius: 2
+  _Bullet: {fileID: 7684911869146856376, guid: 268b53308ae11324ba51956cab5e4f9b, type: 3}
+  _WeaponPlace: {fileID: 4040619058914478913}
+  _spawnBullet: 0
 --- !u!1 &4040619058783640778
 GameObject:
   m_ObjectHideFlags: 0

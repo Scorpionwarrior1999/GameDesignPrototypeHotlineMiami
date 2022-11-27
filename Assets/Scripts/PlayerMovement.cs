@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -9,13 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private CharacterController _charCtrl;
     [SerializeField]
-    private LayerMask _floorLayer;
-
-    [SerializeField]
-    private GameObject _blood;
+    private LayerMask _floorLayer,
+        _defaultLayer;
 
     private Vector3 _velocity, _inputVector;
-    
+
+    private GameObject _enemy;
+
 
     void Update()
     {
@@ -24,13 +23,41 @@ public class PlayerMovement : MonoBehaviour
 
         _charCtrl.Move(_velocity * Time.deltaTime);
 
-        //LookAtDirection();
-        LookAtMouse();
+        GetEnemy();
+
+        if (_enemy != null)
+            LookAtEnemy();
+        else if (_enemy == null)
+            LookAtMouse();
+    }
+
+    private void GetEnemy()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Input.GetMouseButtonDown(2))
+        {
+            if(_enemy == null)
+            {
+                if (Physics.Raycast(ray, out var hit, 30, _defaultLayer))
+                {
+                    if (hit.transform.gameObject.tag == "Enemy")
+                    {
+                        _enemy = hit.transform.gameObject;
+                    }
+                }
+            }
+
+            else
+            {
+                _enemy = null;
+            }
+
+        }
     }
 
     private void LookAtMouse()
     {
-        //Vector3 mousePos = Camera.main.ViewportToScreenPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, 30, _floorLayer))
         {
@@ -41,12 +68,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void LookAtDirection()
+    private void LookAtEnemy()
     {
-        Vector3 tempDirection = transform.position + _velocity;
-        tempDirection.y = transform.position.y;
-
-        transform.LookAt(tempDirection);
+         Vector3 tempDirection = _enemy.transform.position;
+  
+         transform.LookAt(tempDirection);  
     }
 
     private void FixedUpdate()
@@ -89,12 +115,5 @@ public class PlayerMovement : MonoBehaviour
         }
         else
             _velocity.y += Physics.gravity.y * Time.deltaTime;
-    }
-
-
-
-    private void OnDestroy()
-    {
-        Instantiate(_blood, transform.position + Vector3.up * 0.1f, Quaternion.identity);
     }
 }
