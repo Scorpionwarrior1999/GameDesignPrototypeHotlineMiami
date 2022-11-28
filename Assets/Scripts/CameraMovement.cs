@@ -23,10 +23,11 @@ public class CameraMovement : MonoBehaviour
 
     void Start()
     {
+        _cameraPosition.y = transform.position.y;
         _player = FindObjectOfType<PlayerMovement>().gameObject;
         _centerPlayerDelay = _maxCenterPlayerDelay;
 
-        transform.position = _cameraPosition + _player.transform.position;
+        
         transform.rotation = Quaternion.Euler(_cameraRotation);
     }
 
